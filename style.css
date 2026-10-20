@@ -90,7 +90,13 @@ body {
   overflow: hidden;
   background: #134d34;
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  display: block;
+  padding: 0;
+  cursor: zoom-in;
+  transition: transform .2s;
 }
+.avatar:hover { transform: scale(1.03); }
+.avatar:focus-visible { outline: 3px solid #7dffb8; outline-offset: 3px; }
 .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .name {
@@ -239,6 +245,49 @@ body {
   font-weight: 600;
   letter-spacing: 5px;
 }
+
+/* ================= Lightbox (الصورة بالحجم الكبير) ================= */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, .88);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease, visibility .25s;
+  cursor: zoom-out;
+}
+.lightbox.open { opacity: 1; visibility: visible; }
+.lightbox img {
+  max-width: min(92vw, 900px);
+  max-height: 86dvh;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.6);
+  transform: scale(.9);
+  transition: transform .25s ease;
+}
+.lightbox.open img { transform: scale(1); }
+.lightbox__close {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+.lightbox__close:hover { background: rgba(255,255,255,.28); }
 
 /* ================= Toast ================= */
 .toast {

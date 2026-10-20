@@ -29,10 +29,10 @@
       </button>
     </div>
 
-    <div class="avatar">
+    <button class="avatar" id="avatarBtn" type="button" aria-label="View photo">
       <img id="photo" src="./" alt="Profile photo"
            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23134d34%22/><circle cx=%2250%22 cy=%2238%22 r=%2218%22 fill=%22%2389c9a6%22/><path d=%22M15 95c0-22 15-34 35-34s35 12 35 34z%22 fill=%22%2389c9a6%22/></svg>'">
-    </div>
+    </button>
 
     <h1 class="name" id="name">Name</h1>
     <p class="title" id="title">Title</p>
@@ -56,7 +56,7 @@
           <g transform="translate(6.3 6.2) scale(0.5)" fill="currentColor" stroke="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></g>
         </svg>
       </span>
-      <span class="btn__label"><strong>Chat on WhatsApp</strong><small id="waText"></small></span>
+      <span class="btn__label"><strong>WhatsApp</strong><small id="waText"></small></span>
       <span class="btn__arrow"><i></i></span>
     </a>
 
@@ -67,7 +67,7 @@
           <path d="M10 9h4v1.8C14.8 9.5 16 8.8 17.7 8.8 20.6 8.8 22 10.7 22 14v7h-4v-6.2c0-1.3-.5-2.2-1.7-2.2S14 13.5 14 14.8V21h-4z"/>
         </svg>
       </span>
-      <span class="btn__label"><strong>Connect With Me</strong><small id="liText"></small></span>
+      <span class="btn__label"><strong>Linked in</strong><small id="liText"></small></span>
       <span class="btn__arrow"><i></i></span>
     </a>
 
@@ -96,11 +96,19 @@
       <a id="liLink" href="#" target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24"><rect x="1.5" y="1.5" width="21" height="21" rx="4.5" fill="currentColor"/><circle cx="7.3" cy="7.6" r="1.6" fill="#fff"/><rect x="5.9" y="10.2" width="2.8" height="7.6" fill="#fff"/><path fill="#fff" d="M10.6 10.2h2.7v1.1c.5-.8 1.4-1.3 2.5-1.3 2.1 0 3.1 1.3 3.1 3.6v4.2h-2.8v-3.8c0-.9-.3-1.5-1.1-1.5s-1.3.6-1.3 1.5v3.8h-2.7z"/></svg>
       </a>
+      <a id="webLink" href="#" target="_blank" rel="noopener" aria-label="Website">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.900-4 9.500c-2.6-2.600-4-6-4-9.500s1.400-6.900 4-9.500z"/></svg>
+      </a>
     </div>
     <p class="social__label">FOLLOW US ON</p>
   </footer>
 
 </main>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" type="button" aria-label="Close">&times;</button>
+  <img id="lightboxImg" alt="Profile photo">
+</div>
 
 <div class="toast" id="toast" role="status" aria-live="polite">Link copied</div>
 

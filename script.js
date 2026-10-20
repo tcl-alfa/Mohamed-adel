@@ -28,7 +28,8 @@ const profile = {
   /* ---- السوشيال ---- */
   facebook:  "https://www.facebook.com/TCL.Alfa/",
   instagram: "https://www.instagram.com/tcl.alfa",
-  linkedintwo: "https://www.linkedin.com/company/tcl-alfa-alfa-group/"
+  linkedintwo: "https://www.linkedin.com/company/tcl-alfa-alfa-group/",
+  website: "https://alfagroup-egy.com/"   // رابط الموقع — عدّله لو مختلف
 };
 /* ============================================================ */
 
@@ -64,6 +65,7 @@ $("mailText").textContent = profile.emailText;
 // Social
 $("fbLink").href = profile.facebook;
 $("igLink").href = profile.instagram;
+$("webLink").href = profile.website;
 
 // Toast
 let toastTimer;
@@ -76,22 +78,65 @@ function showToast(msg) {
 }
 
 // Share
+async function copyLink(url) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(url);
+      return true;
+    }
+  } catch (e) { /* نكمل للطريقة البديلة */ }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = url;
+    ta.setAttribute("readonly", "");
+    ta.style.cssText = "position:fixed;top:-1000px;opacity:0";
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, url.length);
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
 $("shareBtn").addEventListener("click", async () => {
+  const url = location.href;
   const data = {
     title: `${profile.name} - Alfa`,
     text: `${profile.name} | ${profile.title}`,
-    url: location.href
+    url
   };
-  try {
-    if (navigator.share) {
+
+  // 1) مشاركة النظام (موبايل / بعض المتصفحات)
+  if (navigator.share) {
+    try {
       await navigator.share(data);
-    } else if (navigator.clipboard) {
-      await navigator.clipboard.writeText(location.href);
-      showToast("Link copied");
-    } else {
-      showToast(location.href);
+      return;
+    } catch (err) {
+      if (err && err.name === "AbortError") return;   // المستخدم قفل نافذة المشاركة
+      /* أي خطأ تاني → نكمل لنسخ الرابط */
     }
-  } catch (err) {
-    /* user cancelled */
   }
+
+  // 2) نسخ الرابط + رسالة تأكيد
+  const ok = await copyLink(url);
+  showToast(ok ? "Link copied" : url);
 });
+
+// Lightbox: فتح الصورة بالحجم الكبير
+const lightbox = $("lightbox");
+function openLightbox() {
+  const photo = $("photo");
+  $("lightboxImg").src = photo.currentSrc || photo.src;
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden", "false");
+}
+function closeLightbox() {
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden", "true");
+}
+$("avatarBtn").addEventListener("click", openLightbox);
+lightbox.addEventListener("click", closeLightbox);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
